@@ -52,7 +52,7 @@ const tiktok = new Site({
             return
           }
 
-          widget.style.paddingTop = '20px'
+          widget.style.paddingTop = '10px'
           container.after(widget)
         })
         waitForElement('.e1v8eaq60').then((container) => {
@@ -65,7 +65,7 @@ const tiktok = new Site({
             return
           }
 
-          widget.style.paddingTop = '20px'
+          widget.style.paddingTop = '10px'
           container.before(widget)
         })
       },
