@@ -71,7 +71,7 @@ function i18n(key: string): string {
 <template>
   <div v-if="ready" class="select-none">
     <div class="mb-6 bg-black bg-opacity-50">
-      <div class="mx-auto max-w-4xl flex items-center justify-between px-4 py-3.5 leading-none container">
+      <div class="container mx-auto max-w-4xl flex items-center justify-between px-4 py-3.5 leading-none">
         <div class="flex items-center">
           <img :src="logo" alt="Saner Social Media" class="mr-4 h-32px rounded-full">
           <div class="font-semibold">
@@ -99,7 +99,7 @@ function i18n(key: string): string {
       </div>
     </div>
 
-    <div class="mx-auto max-w-4xl px-4 container">
+    <div class="container mx-auto max-w-4xl px-4">
       <div class="mb-2 flex border-dark-200 space-x-2">
         <button
           class="w-full rounded bg-dark-800 px-4 py-2.5 text-sm leading-none ring-blue-500 transition-all hover:bg-dark-500 active:ring-2"
