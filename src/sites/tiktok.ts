@@ -10,14 +10,13 @@ const tiktok = new Site({
   siteActions: [
     new SiteAction({
       name: chrome.i18n.getMessage('blockHomeFeed'),
-      validateUrl: () => true,
+      validateUrl: url => url.pathname === '/',
       requiredUserConfigKey: UserConfigKey.TikTokHomeFeed,
       injectCss: `
         [data-e2e="recommend-list-item-container"] {
           display: none!important;
         }
       `,
-
       manipulateDom: ({ siteAction }) => waitForElement('[data-e2e="recommend-list-item-container"]').then((container) => {
         if (!container) {
           return
@@ -30,20 +29,20 @@ const tiktok = new Site({
         }
       }),
     }),
-
     new SiteAction({
       name: chrome.i18n.getMessage('blockVideoComments'),
       validateUrl: url => url.pathname.includes('/video/'),
       requiredUserConfigKey: UserConfigKey.TikTokVideoComments,
       injectCss: `
-        .css-1ngaos4-DivCommentMain,
-        .css-13wx63w-DivCommentObjectWrapper,
-        .css-1qp5gj2-DivCommentListContainer {
-          display: none!important;
+        .e1vrjtg50,
+        .e1395o4f9 {
+          opacity: 0!important;
+          height: 0px!important;
+          overflow: hidden!important;
         }
       `,
-      manipulateDom: ({ siteAction }) => Promise.any([
-        waitForElement('.css-1ngaos4-DivCommentMain').then((container) => {
+      manipulateDom: ({ siteAction }) => {
+        waitForElement('.e178qcw44').then((container) => {
           if (!container) {
             return
           }
@@ -53,10 +52,10 @@ const tiktok = new Site({
             return
           }
 
-          widget.style.paddingTop = '20px'
-          container.before(widget)
-        }),
-        waitForElement('.css-7whb78-DivCommentListContainer').then((container) => {
+          widget.style.paddingTop = '10px'
+          container.after(widget)
+        })
+        waitForElement('.e1v8eaq60').then((container) => {
           if (!container) {
             return
           }
@@ -66,23 +65,10 @@ const tiktok = new Site({
             return
           }
 
-          widget.style.paddingTop = '20px'
+          widget.style.paddingTop = '10px'
           container.before(widget)
-        }),
-        waitForElement('.css-1qp5gj2-DivCommentListContainer').then((container) => {
-          if (!container) {
-            return
-          }
-
-          const widget = siteAction.createWidget(container)
-          if (!widget) {
-            return
-          }
-
-          widget.style.padding = '20px'
-          container.before(widget)
-        }),
-      ]),
+        })
+      },
     }),
   ],
 })
