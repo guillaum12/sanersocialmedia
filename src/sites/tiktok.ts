@@ -10,7 +10,7 @@ const tiktok = new Site({
   siteActions: [
     new SiteAction({
       name: chrome.i18n.getMessage('blockHomeFeed'),
-      validateUrl: () => true,
+      validateUrl: url => url.pathname === '/',
       requiredUserConfigKey: UserConfigKey.TikTokHomeFeed,
       injectCss: `
         [data-e2e="recommend-list-item-container"] {
