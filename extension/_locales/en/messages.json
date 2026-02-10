@@ -52,5 +52,8 @@
   },
   "blockSubscriptionsFeed": {
     "message": "Block feed on /feed/subscriptions"
+  },
+  "blockVideoEndRecommendations": {
+    "message": "Block recommendations at the end of a video"
   }
 }

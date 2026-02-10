@@ -13,6 +13,7 @@ export enum UserConfigKey {
   YouTubeMobileVideoSuggestions = 'YouTubeMobileVideoSuggestions',
   YouTubeMobileShorts = 'YouTubeMobileShorts',
   YouTubeMobileSubscriptionsFeed = 'YouTubeMobileSubscriptionsFeed',
+  YouTubeVideoEndRecommendations = 'YouTubeVideoEndRecommendations',
   XHomeFeed = 'XHomeFeed',
   XSidebarTrends = 'XSidebarTrends',
   XSidebarFollowSuggestions = 'XSidebarFollowSuggestions',

@@ -144,6 +144,17 @@ const youtube = new Site({
         container.after(widget)
       }),
     }),
+    new SiteAction({
+      name: chrome.i18n.getMessage('blockVideoEndRecommendations'),
+      validateUrl: url => url.href.includes('/watch?v='),
+      requiredUserConfigKey: UserConfigKey.YouTubeVideoEndRecommendations,
+      injectCss: `
+        .ytp-fullscreen-grid-main-content {
+          display: none!important;
+        }
+      `,
+      manipulateDom: () => {}
+    }),
   ],
 })
 
