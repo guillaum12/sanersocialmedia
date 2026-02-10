@@ -109,6 +109,17 @@ const youtube = new Site({
       }),
     }),
     new SiteAction({
+      name: chrome.i18n.getMessage('blockShortsSearchPage'),
+      validateUrl: url => url.pathname === '/' || url.pathname === '/feed/subscriptions',
+      requiredUserConfigKey: UserConfigKey.YouTubeShortsSearchPage,
+      injectCss: `
+        ytd-rich-shelf-renderer[is-shorts] {
+          display: none!important;
+        }
+      `,
+      manipulateDom: () => {},
+    }),
+    new SiteAction({
       name: chrome.i18n.getMessage('blockSubscriptionsFeed'),
       validateUrl: url => url.pathname === '/feed/subscriptions',
       requiredUserConfigKey: UserConfigKey.YouTubeSubscriptionsFeed,

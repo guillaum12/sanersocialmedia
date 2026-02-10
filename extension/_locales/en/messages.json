@@ -47,6 +47,9 @@
   "blockShorts": {
     "message": "Block shorts"
   },
+  "blockShortsSearchPage": {
+    "message": "Block shorts on home and subscriptions feed"
+  },
   "blockSubscriptionsFeed": {
     "message": "Block feed on /feed/subscriptions"
   }

@@ -7,6 +7,7 @@ export enum UserConfigKey {
   YouTubeVideoSidebarSuggestions = 'YouTubeVideoSidebarSuggestions',
   YouTubeVideoComments = 'YouTubeVideoComments',
   YouTubeShorts = 'YouTubeShorts',
+  YouTubeShortsSearchPage = 'YouTubeShortsSearchPage',
   YouTubeSubscriptionsFeed = 'YouTubeSubscriptionsFeed',
   YouTubeMobileHomeFeed = 'YouTubeMobileHomeFeed',
   YouTubeMobileVideoSuggestions = 'YouTubeMobileVideoSuggestions',
