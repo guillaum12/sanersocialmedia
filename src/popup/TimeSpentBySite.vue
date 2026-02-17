@@ -35,6 +35,8 @@ const timeSpentEntries = ref<Array<{ hostname: string, elapsedMs: number }>>([])
 const todayDateKey = computed(() => getTodayDateKey())
 const canGoNext = computed(() => selectedDateKey.value < todayDateKey.value)
 const dateLabel = computed(() => formatDateLabel(selectedDateKey.value))
+const totalElapsedMs = computed(() =>
+  timeSpentEntries.value.reduce((sum, e) => sum + e.elapsedMs, 0))
 
 async function refreshTimeSpent() {
   const timeSpentByHost = await getTimeSpentForDate(selectedDateKey.value)
@@ -96,9 +98,12 @@ chrome.storage.onChanged.addListener((_changes, areaName) => {
       >
         <span class="i-mdi:chevron-left text-lg" />
       </button>
-      <span class="min-w-0 flex-1 truncate text-center text-sm font-medium">
-        {{ dateLabel }}
-      </span>
+      <div class="min-w-0 flex-1 truncate text-center">
+        <span class="block text-sm font-medium">{{ dateLabel }}</span>
+        <span v-if="totalElapsedMs > 0" class="block text-xs text-gray-400">
+          Total: {{ formatElapsedMs(totalElapsedMs) }}
+        </span>
+      </div>
       <button
         type="button"
         class="flex h-8 w-8 shrink-0 items-center justify-center rounded bg-dark-800 text-gray-300 ring-blue-500 hover:bg-dark-600 hover:text-white active:ring-2 disabled:opacity-40 disabled:pointer-events-none"
