@@ -3,11 +3,16 @@ import { onMounted, ref, shallowRef, watch } from 'vue'
 import logo from '~/assets/logo.svg'
 import { checkSnoozed, getSnoozedUntilTimestamp, getSnoozeMinutes, openOptionsPage, setSnoozedUntilTimestamp, setSnoozeMinutes } from '~/chrome'
 import EnterCode from './EnterCode.vue'
+import TimeSpentBySite from './TimeSpentBySite.vue'
 
 const screen = ref<'blocked' | 'unblocked' | 'enter_code'>()
 const ready = ref(false)
 const snoozed = ref(false)
-chrome.storage.onChanged.addListener(async () => snoozed.value = await checkSnoozed())
+chrome.storage.onChanged.addListener(async (_changes, areaName) => {
+  if (areaName === 'sync') {
+    snoozed.value = await checkSnoozed()
+  }
+})
 
 const minutes = ref(0)
 watch(minutes, async value => await setSnoozeMinutes(value))
@@ -112,6 +117,7 @@ function withLeadingZero(value: number) {
         @cancel="screen = 'blocked'"
       />
     </section>
+    <TimeSpentBySite />
   </div>
 </template>
 
