@@ -1,5 +1,5 @@
 import type { Store } from '~/types'
-import { addTimeSpentForHost } from '~/chrome'
+import { addTimeSpentForHost } from '~/storage/timeSpent'
 import { getSiteByUrl } from '~/site'
 import * as sites from '~/sites'
 import { onRouteChange } from '~/utils'
