@@ -17,6 +17,9 @@
   "blockHomeFeed": {
     "message": "Block home feed"
   },
+  "blockHomeFeedShorts": {
+    "message": "Block shorts in home feed"
+  },
   "blockSidebarTrends": {
     "message": "Block sidebar trends"
   },
@@ -33,21 +36,30 @@
     "message": "Block sidebar follow suggestions"
   },
   "blockSidebarVideoSuggestions": {
-    "message": "Block sidebar recommendations on /watch"
+    "message": "Block /watch sidebar recommendations"
   },
   "blockVideoSuggestions": {
-    "message": "Block recommendations below video on /watch"
+    "message": "Block /watch recommendations below video"
   },
-  "blockCommentsOnWatch": {
-    "message": "Block comments on /watch"
+  "blockVideoEndRecommendations": {
+    "message": "Block /watch video end screen recommendations"
+  },
+  "blockVideoCommentsOnWatch": {
+    "message": "Block /watch comments"
   },
   "blockVideoComments": {
     "message": "Block video comments"
   },
-  "blockShorts": {
-    "message": "Block shorts"
+  "blockShortsFeed": {
+    "message": "Block /shorts feed"
+  },
+  "blockShortsSearchResults": {
+    "message": "Block shorts in search results"
   },
   "blockSubscriptionsFeed": {
-    "message": "Block feed on /feed/subscriptions"
+    "message": "Block /feed/subscriptions feed"
+  },
+  "blockSubscriptionsFeedShorts": {
+    "message": "Block shorts in /feed/subscriptions feed"
   }
 }

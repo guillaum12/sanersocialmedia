@@ -4,10 +4,14 @@ export interface Store {
 
 export enum UserConfigKey {
   YouTubeHomeFeed = 'YouTubeHomeFeed',
+  YouTubeHomeFeedShorts = 'YouTubeHomeFeedShorts',
   YouTubeVideoSidebarSuggestions = 'YouTubeVideoSidebarSuggestions',
   YouTubeVideoComments = 'YouTubeVideoComments',
+  YouTubeVideoEndRecommendations = 'YouTubeVideoEndRecommendations',
   YouTubeShorts = 'YouTubeShorts',
   YouTubeSubscriptionsFeed = 'YouTubeSubscriptionsFeed',
+  YouTubeSubscriptionsFeedShorts = 'YouTubeSubscriptionsFeedShorts',
+  YouTubeSearchResultsShorts = 'YouTubeSearchResultsShorts',
   YouTubeMobileHomeFeed = 'YouTubeMobileHomeFeed',
   YouTubeMobileVideoSuggestions = 'YouTubeMobileVideoSuggestions',
   YouTubeMobileShorts = 'YouTubeMobileShorts',

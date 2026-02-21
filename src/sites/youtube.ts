@@ -34,6 +34,17 @@ const youtube = new Site({
       }),
     }),
     new SiteAction({
+      name: chrome.i18n.getMessage('blockHomeFeedShorts'),
+      validateUrl: url => url.pathname === '/',
+      requiredUserConfigKey: UserConfigKey.YouTubeHomeFeedShorts,
+      injectCss: `
+        ytd-rich-shelf-renderer[is-shorts] {
+          display: none!important;
+        }
+      `,
+      manipulateDom: () => { },
+    }),
+    new SiteAction({
       name: chrome.i18n.getMessage('blockSidebarVideoSuggestions'),
       validateUrl: () => true,
       requiredUserConfigKey: UserConfigKey.YouTubeVideoSidebarSuggestions,
@@ -57,7 +68,7 @@ const youtube = new Site({
       }),
     }),
     new SiteAction({
-      name: chrome.i18n.getMessage('blockCommentsOnWatch'),
+      name: chrome.i18n.getMessage('blockVideoCommentsOnWatch'),
       validateUrl: () => true,
       requiredUserConfigKey: UserConfigKey.YouTubeVideoComments,
       injectCss: `
@@ -82,7 +93,18 @@ const youtube = new Site({
       }),
     }),
     new SiteAction({
-      name: chrome.i18n.getMessage('blockShorts'),
+      name: chrome.i18n.getMessage('blockVideoEndRecommendations'),
+      validateUrl: url => url.href.includes('/watch?v='),
+      requiredUserConfigKey: UserConfigKey.YouTubeVideoEndRecommendations,
+      injectCss: `
+        .ytp-fullscreen-grid-main-content {
+          display: none!important;
+        }
+      `,
+      manipulateDom: () => { },
+    }),
+    new SiteAction({
+      name: chrome.i18n.getMessage('blockShortsFeed'),
       validateUrl: url => url.pathname.includes('/shorts/'),
       requiredUserConfigKey: UserConfigKey.YouTubeShorts,
       injectCss: `
@@ -132,6 +154,28 @@ const youtube = new Site({
         widget.style.padding = '40px'
         container.after(widget)
       }),
+    }),
+    new SiteAction({
+      name: chrome.i18n.getMessage('blockSubscriptionsFeedShorts'),
+      validateUrl: url => url.pathname === '/feed/subscriptions',
+      requiredUserConfigKey: UserConfigKey.YouTubeSubscriptionsFeedShorts,
+      injectCss: `
+        ytd-rich-shelf-renderer[is-shorts] {
+          display: none!important;
+        }
+      `,
+      manipulateDom: () => { },
+    }),
+    new SiteAction({
+      name: chrome.i18n.getMessage('blockShortsSearchResults'),
+      validateUrl: url => url.pathname === '/results',
+      requiredUserConfigKey: UserConfigKey.YouTubeSearchResultsShorts,
+      injectCss: `
+        grid-shelf-view-model {
+          display: none!important;
+        }
+      `,
+      manipulateDom: () => { },
     }),
   ],
 })
