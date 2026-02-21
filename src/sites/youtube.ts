@@ -117,7 +117,7 @@ const youtube = new Site({
           display: none!important;
         }
       `,
-      manipulateDom: () => {},
+      manipulateDom: () => { },
     }),
     new SiteAction({
       name: chrome.i18n.getMessage('blockSubscriptionsFeed'),
@@ -153,7 +153,7 @@ const youtube = new Site({
           display: none!important;
         }
       `,
-      manipulateDom: () => {}
+      manipulateDom: () => { },
     }),
   ],
 })
