@@ -56,7 +56,7 @@ const youtubeMobile = new Site({
       }),
     }),
     new SiteAction({
-      name: chrome.i18n.getMessage('blockShorts'),
+      name: chrome.i18n.getMessage('blockShortsFeed'),
       validateUrl: url => url.pathname.includes('/shorts/'),
       requiredUserConfigKey: UserConfigKey.YouTubeMobileShorts,
       injectCss: `
