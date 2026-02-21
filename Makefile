@@ -1,6 +1,4 @@
-.PHONY: vscode nix-update
-
-export NIX_CONFIG=experimental-features = nix-command flakes
+.PHONY: vscode
 
 vscode:
 	nix develop -c code .
