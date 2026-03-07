@@ -125,14 +125,22 @@ export class SiteAction {
 
     const quoteText = document.createElement('div')
     quoteText.setAttribute('data-quote-text', '')
-    quoteText.textContent = randomQuote.text
+    quoteText.textContent = randomQuote.text + "BITCHES";
 
     const quoteAuthor = document.createElement('div')
     quoteAuthor.setAttribute('data-quote-author', '')
     quoteAuthor.textContent = `— ${randomQuote.author}`
 
+    const buttonDisactivate = document.createElement('button')
+    buttonDisactivate.setAttribute('data-button-disactivate', '')
+    buttonDisactivate.textContent = 'Disactivate'
+    buttonDisactivate.addEventListener('click', () => {
+      this.removeInjectedElements()
+    })
+
     quote.appendChild(quoteText)
     quote.appendChild(quoteAuthor)
+    quote.appendChild(buttonDisactivate)
     widget.appendChild(quote)
 
     return widget
