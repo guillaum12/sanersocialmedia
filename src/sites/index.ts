@@ -12,3 +12,5 @@ import youtube from './youtube'
 import youtubeMobile from './youtube-mobile'
 
 export { facebook, github, hackernews, instagram, linkedin, pinterest, reddit, tiktok, twitch, x, youtube, youtubeMobile }
+
+export const sites = [youtube, youtubeMobile, x, instagram, facebook, tiktok, pinterest, linkedin, twitch, reddit, github, hackernews]

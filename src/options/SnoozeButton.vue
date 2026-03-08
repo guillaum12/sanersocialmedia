@@ -1,18 +1,18 @@
 <script setup lang="ts">
+import type { SiteAction } from '~/site'
 import { onMounted, ref, shallowRef, watch } from 'vue'
-import { checkSnoozedPerSiteAction, getSnoozedUntilTimestampPerSiteAction, setSnoozedUntilTimestampPerSiteAction } from '~/chrome';
 
-import { SiteAction } from '~/site';
+import { checkSnoozedPerSiteAction, getSnoozedUntilTimestampPerSiteAction } from '~/chrome'
 
 const props = defineProps<{
   siteAction: SiteAction
-}>();
+}>()
 
 const siteActionKey = props.siteAction.params.requiredUserConfigKey
 const ready = ref(false)
 const snoozed = ref(false)
-// chrome.storage.onChanged.addListener(async () => snoozed.value = await checkSnoozedPerSiteAction(siteActionKey))
 
+chrome.storage.onChanged.addListener(async () => snoozed.value = await checkSnoozedPerSiteAction(siteActionKey))
 
 async function init() {
   snoozed.value = await checkSnoozedPerSiteAction(siteActionKey)
@@ -50,12 +50,12 @@ watch(snoozed, setupTimer)
 function withLeadingZero(value: number) {
   return value < 10 ? `0${value}` : value
 }
+
+function stillTimeLeft() {
+  return timer.value.minutes > 0 || timer.value.seconds > 0
+}
 </script>
 
 <template>
-    <button @click="props.siteAction.activateSnooze()">
-      <span v-if="snoozed">Disactivated for : {{ withLeadingZero(timer.minutes) }}:{{ withLeadingZero(timer.seconds) }}</span>
-      <!-- <span v-else>Snooze</span> -->
-    </button>
-  </template>
-  
+  <span v-if="snoozed && stillTimeLeft()">Snoozed for : {{ withLeadingZero(timer.minutes) }}:{{ withLeadingZero(timer.seconds) }}</span>
+</template>

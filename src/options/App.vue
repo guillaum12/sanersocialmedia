@@ -3,14 +3,12 @@ import type { SiteAction } from '~/site'
 import type { UserConfig } from '~/types'
 import { onMounted, onUnmounted, ref } from 'vue'
 import logo from '~/assets/logo.svg'
-import { getStore, setUserConfig, toggleSiteAction, toggleUserConfigKey } from '~/chrome'
-import { facebook, github, hackernews, instagram, linkedin, pinterest, reddit, tiktok, twitch, x, youtube, youtubeMobile } from '~/sites'
+import { getStore, setUserConfig, toggleSiteAction } from '~/chrome'
+import { sites } from '~/sites'
 import SnoozeButton from './SnoozeButton.vue'
 
 const chromeWebStoreLink = 'https://chromewebstore.google.com/detail/saner-social-media-feed-b/opnoobcmpioggidgaejfkbopdphbfkkk'
 const githubLink = 'https://github.com/tobiasdalhof/sanersocialmedia'
-
-const sites = [youtube, youtubeMobile, x, instagram, facebook, tiktok, pinterest, linkedin, twitch, reddit, github, hackernews]
 
 const userConfig = ref<UserConfig>()
 async function getUserConfig() {
@@ -35,8 +33,6 @@ function isSiteEnabled(siteAction: SiteAction): boolean {
   }
   return userConfig.value[siteAction.params.requiredUserConfigKey] === true
 }
-
-
 
 async function enableAllSiteActions() {
   const config: UserConfig = {}
@@ -134,8 +130,8 @@ function i18n(key: string): string {
               <div class="i-mdi:chevron-right mx-1 text-24px" />
               <div>{{ siteAction.params.name }}</div>
             </div>
-            <div class="flex ml-4 gap-2">
-              <SnoozeButton :siteAction=siteAction />
+            <div class="ml-4 flex gap-2">
+              <SnoozeButton :site-action="siteAction" />
               <div v-if="isSiteEnabled(siteAction)" class="i-mdi:check text-28px text-green-500" />
               <div v-else class="i-mdi:close text-28px text-red-500" />
             </div>

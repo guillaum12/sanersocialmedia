@@ -24,8 +24,8 @@ export class Site {
   async runSiteActions(url: URL, userConfig: UserConfig) {
     for (const siteAction of this.params.siteActions) {
       siteAction.setUserConfig(userConfig)
-      const snoozed = await checkSnoozed();
-      const snoozedPerSiteAction = await checkSnoozedPerSiteAction(siteAction.params.requiredUserConfigKey);
+      const snoozed = await checkSnoozed()
+      const snoozedPerSiteAction = await checkSnoozedPerSiteAction(siteAction.params.requiredUserConfigKey)
       if (snoozed || snoozedPerSiteAction || !siteAction.canRun(url)) {
         siteAction.removeInjectedElements()
         continue
@@ -53,7 +53,7 @@ export class SiteAction {
 
   constructor(params: SiteActionParams) {
     this.params = params
-    this.id = window.btoa(params.name)
+    this.id = globalThis.btoa(params.name)
   }
 
   setUserConfig(userConfig?: UserConfig) {
@@ -126,7 +126,7 @@ export class SiteAction {
 
     const quoteText = document.createElement('div')
     quoteText.setAttribute('data-quote-text', '')
-    quoteText.textContent = randomQuote.text + "BITCHES";
+    quoteText.textContent = `${randomQuote.text}BITCHES`
 
     const quoteAuthor = document.createElement('div')
     quoteAuthor.setAttribute('data-quote-author', '')
@@ -136,8 +136,7 @@ export class SiteAction {
     buttonDisactivate.setAttribute('data-button-disactivate', '')
     buttonDisactivate.textContent = 'Show'
     buttonDisactivate.addEventListener('click', async () => {
-      await this.activateSnooze();
-      toggleSiteAction(this);
+      await this.activateSnooze()
     })
 
     quote.appendChild(quoteText)
@@ -148,14 +147,13 @@ export class SiteAction {
     return widget
   }
 
-  async activateSnooze()
-  {
-  const ms = 10 * 60 * 1000
-  const now = new Date()
-  const timestamp = now.getTime() + ms
-  await setSnoozedUntilTimestampPerSiteAction(this.params.requiredUserConfigKey, timestamp)
+  async activateSnooze() {
+    // const numberOfMinutes = 10
+    const ms = 3000 // numberOfMinutes * 60 * 1000
+    const now = new Date()
+    const timestamp = now.getTime() + ms
+    await setSnoozedUntilTimestampPerSiteAction(this.params.requiredUserConfigKey, timestamp)
   }
-
 }
 
 export function getSiteByUrl(sites: Site[], url: URL) {

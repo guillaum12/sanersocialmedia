@@ -1,6 +1,6 @@
 import type { Store } from '~/types'
 import { getSiteByUrl } from '~/site'
-import * as sites from '~/sites'
+import { sites } from '~/sites'
 import { onRouteChange } from '~/utils'
 import './styles.css'
 
