@@ -13,12 +13,11 @@ const linkedin = new Site({
       validateUrl: url => ['/', '/feed', '/feed/'].includes(url.pathname),
       requiredUserConfigKey: UserConfigKey.LinkedInHomeFeed,
       injectCss: `
-        .scaffold-finite-scroll,
-        .feed-sort-toggle-dsa__wrapper {
+        div[data-testid="mainFeed"] {
           display: none!important;
         }
       `,
-      manipulateDom: ({ siteAction }) => waitForElement('.scaffold-finite-scroll').then((container) => {
+      manipulateDom: ({ siteAction }) => waitForElement('div[data-testid="mainFeed"]').then((container) => {
         if (!container) {
           return
         }
