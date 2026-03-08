@@ -35,6 +35,11 @@ export async function toggleUserConfigKey(key: UserConfigKey) {
   }
   const userConfig: UserConfig = { ...store.userConfig, [key]: value }
   await setUserConfig(userConfig)
+
+  // Reset snoozedUntilTimestamp for this site action if the site action is disabled back
+  if (!value) {
+    await setSnoozedUntilTimestampPerSiteAction(key, 0)
+  }
 }
 
 export async function getSnoozeMinutes() {

@@ -130,7 +130,7 @@ function i18n(key: string): string {
               <div class="i-mdi:chevron-right mx-1 text-24px" />
               <div>{{ siteAction.params.name }}</div>
             </div>
-            <div class="ml-4 flex gap-2">
+            <div class="ml-4 flex items-center gap-2">
               <SnoozeButton :site-action="siteAction" />
               <div v-if="isSiteEnabled(siteAction)" class="i-mdi:check text-28px text-green-500" />
               <div v-else class="i-mdi:close text-28px text-red-500" />

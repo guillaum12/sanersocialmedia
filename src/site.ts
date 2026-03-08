@@ -1,5 +1,5 @@
 import type { UserConfig, UserConfigKey } from './types'
-import { checkSnoozed, checkSnoozedPerSiteAction, setSnoozedUntilTimestampPerSiteAction, toggleSiteAction } from './chrome'
+import { checkSnoozed, checkSnoozedPerSiteAction, setSnoozedUntilTimestampPerSiteAction } from './chrome'
 import { getRandomQuote } from './quotes'
 import { hasDarkBackground } from './utils'
 
@@ -126,30 +126,38 @@ export class SiteAction {
 
     const quoteText = document.createElement('div')
     quoteText.setAttribute('data-quote-text', '')
-    quoteText.textContent = `${randomQuote.text}BITCHES`
+    quoteText.textContent = randomQuote.text
 
     const quoteAuthor = document.createElement('div')
     quoteAuthor.setAttribute('data-quote-author', '')
     quoteAuthor.textContent = `— ${randomQuote.author}`
+    const numberOfClickToUnhide = 7
+    const attributeClickLeft = 'number-of-clicks-left'
 
-    const buttonDisactivate = document.createElement('button')
-    buttonDisactivate.setAttribute('data-button-disactivate', '')
-    buttonDisactivate.textContent = 'Show'
-    buttonDisactivate.addEventListener('click', async () => {
-      await this.activateSnooze()
+    quote.setAttribute(attributeClickLeft, numberOfClickToUnhide.toString())
+
+    quote.addEventListener('click', async () => {
+      const numberOfClickLeft = Number.parseInt(quote.getAttribute(attributeClickLeft)!)
+
+      if (numberOfClickLeft) {
+        quote.setAttribute(attributeClickLeft, (numberOfClickLeft - 1).toString())
+      }
+      else {
+        quote.setAttribute(attributeClickLeft, numberOfClickToUnhide.toString())
+        await this.activateSnooze()
+      }
     })
 
     quote.appendChild(quoteText)
     quote.appendChild(quoteAuthor)
-    quote.appendChild(buttonDisactivate)
     widget.appendChild(quote)
 
     return widget
   }
 
   async activateSnooze() {
-    // const numberOfMinutes = 10
-    const ms = 3000 // numberOfMinutes * 60 * 1000
+    const numberOfMinutes = 10
+    const ms = numberOfMinutes * 60 * 1000
     const now = new Date()
     const timestamp = now.getTime() + ms
     await setSnoozedUntilTimestampPerSiteAction(this.params.requiredUserConfigKey, timestamp)
