@@ -1,5 +1,5 @@
 import type { UserConfig, UserConfigKey } from './types'
-import { checkSnoozed } from './chrome'
+import { checkSnoozed, checkSnoozedPerSiteAction, setSnoozedUntilTimestampPerSiteAction, toggleSiteAction } from './chrome'
 import { getRandomQuote } from './quotes'
 import { hasDarkBackground } from './utils'
 
@@ -24,8 +24,9 @@ export class Site {
   async runSiteActions(url: URL, userConfig: UserConfig) {
     for (const siteAction of this.params.siteActions) {
       siteAction.setUserConfig(userConfig)
-      const snoozed = await checkSnoozed()
-      if (snoozed || !siteAction.canRun(url)) {
+      const snoozed = await checkSnoozed();
+      const snoozedPerSiteAction = await checkSnoozedPerSiteAction(siteAction.params.requiredUserConfigKey);
+      if (snoozed || snoozedPerSiteAction || !siteAction.canRun(url)) {
         siteAction.removeInjectedElements()
         continue
       }
@@ -133,9 +134,10 @@ export class SiteAction {
 
     const buttonDisactivate = document.createElement('button')
     buttonDisactivate.setAttribute('data-button-disactivate', '')
-    buttonDisactivate.textContent = 'Disactivate'
-    buttonDisactivate.addEventListener('click', () => {
-      this.removeInjectedElements()
+    buttonDisactivate.textContent = 'Show'
+    buttonDisactivate.addEventListener('click', async () => {
+      await this.activateSnooze();
+      toggleSiteAction(this);
     })
 
     quote.appendChild(quoteText)
@@ -145,6 +147,15 @@ export class SiteAction {
 
     return widget
   }
+
+  async activateSnooze()
+  {
+  const ms = 10 * 60 * 1000
+  const now = new Date()
+  const timestamp = now.getTime() + ms
+  await setSnoozedUntilTimestampPerSiteAction(this.params.requiredUserConfigKey, timestamp)
+  }
+
 }
 
 export function getSiteByUrl(sites: Site[], url: URL) {
