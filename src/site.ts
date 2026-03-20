@@ -1,5 +1,5 @@
 import type { UserConfig, UserConfigKey } from './types'
-import { checkSnoozed, checkSnoozedPerSiteAction, setSnoozedUntilTimestampPerSiteAction } from './chrome'
+import { checkSnoozed, checkSnoozedPerSiteAction, getSnoozeMinutes, setSnoozedUntilTimestampPerSiteAction } from './chrome'
 import { getRandomQuote } from './quotes'
 import { hasDarkBackground } from './utils'
 
@@ -156,7 +156,7 @@ export class SiteAction {
   }
 
   async activateSnooze() {
-    const numberOfMinutes = 10
+    const numberOfMinutes = await getSnoozeMinutes()
     const ms = numberOfMinutes * 60 * 1000
     const now = new Date()
     const timestamp = now.getTime() + ms
