@@ -166,6 +166,9 @@ const youtube = new Site({
         ytd-rich-shelf-renderer[is-shorts] {
           display: none!important;
         }
+        ytd-guide-entry-renderer:nth-child(2) {
+          display: none!important;
+        }
       `,
       manipulateDom: () => { },
     }),
