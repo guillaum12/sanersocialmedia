@@ -34,7 +34,7 @@ async function setupSnooze() {
   }
 
   await snoozeTick()
-  snoozeInterval = setInterval(() => snoozeTick(), 1000)
+  snoozeInterval = setInterval(snoozeTick, 1000)
 }
 
 chrome.runtime.onInstalled.addListener(() => setupSnooze())
