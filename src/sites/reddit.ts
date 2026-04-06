@@ -19,13 +19,13 @@ function createHideRedditFeedAction(params: CreateHideRedditFeedActionParams): S
         display: none!important;
       }
     `,
-    manipulateDom: ({ siteAction }) => waitForElement('main').then((container) => {
+    manipulateDom: ({ siteAction }) => waitForElement('main').then(async (container) => {
       if (!container) {
         return
       }
       mute(container)
 
-      const widget = siteAction.createWidget(container)
+      const widget = await siteAction.createWidget(container)
       if (!widget) {
         return
       }

@@ -103,14 +103,14 @@ export class SiteAction {
     return null
   }
 
-  createWidget(parent: HTMLElement): HTMLElement | undefined {
+  async createWidget(parent: HTMLElement): Promise<HTMLElement | undefined> {
     const foundWidget = this.findWidget(parent)
     if (foundWidget) {
       // widget already exists
       return undefined
     }
 
-    const randomQuote = getRandomQuote()
+    const randomQuote = await getRandomQuote()
     const widget = document.createElement('div')
     widget.setAttribute(this.idDataAttribute, this.id)
     widget.setAttribute('data-sanersocialmedia-widget', '')
@@ -128,12 +128,9 @@ export class SiteAction {
     quoteText.setAttribute('data-quote-text', '')
     quoteText.textContent = randomQuote.text
 
-    if (randomQuote.author) {
-      const quoteAuthor = document.createElement('div')
-      quoteAuthor.setAttribute('data-quote-author', '')
-      quoteAuthor.textContent = `— ${randomQuote.author}`
-      quote.appendChild(quoteAuthor)
-    }
+    const quoteAuthor = document.createElement('div')
+    quoteAuthor.setAttribute('data-quote-author', '')
+    quoteAuthor.textContent = `— ${randomQuote.author}`
 
     const numberOfClickToUnhide = 7
     const attributeClickLeft = 'number-of-clicks-left'
@@ -153,6 +150,7 @@ export class SiteAction {
     })
 
     quote.appendChild(quoteText)
+    quote.appendChild(quoteAuthor)
     widget.appendChild(quote)
 
     return widget

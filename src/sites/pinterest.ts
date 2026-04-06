@@ -17,13 +17,13 @@ const pinterest = new Site({
           display: none!important;
         }
       `,
-      manipulateDom: ({ siteAction }) => waitForElement('[data-test-id="homefeed-feed"]').then((container) => {
+      manipulateDom: ({ siteAction }) => waitForElement('[data-test-id="homefeed-feed"]').then(async (container) => {
         if (!container) {
           return
         }
         mute(container)
 
-        const widget = siteAction.createWidget(container)
+        const widget = await siteAction.createWidget(container)
         if (!widget) {
           return
         }
@@ -41,13 +41,13 @@ const pinterest = new Site({
           display: none!important;
         }
       `,
-      manipulateDom: ({ siteAction }) => waitForElement('[data-test-id="relatedPins"]').then((container) => {
+      manipulateDom: ({ siteAction }) => waitForElement('[data-test-id="relatedPins"]').then(async (container) => {
         if (!container) {
           return
         }
         mute(container)
 
-        const widget = siteAction.createWidget(container)
+        const widget = await siteAction.createWidget(container)
         if (!widget) {
           return
         }

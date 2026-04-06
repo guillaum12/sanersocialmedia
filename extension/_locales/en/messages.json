@@ -65,6 +65,12 @@
   "quotesParameters": {
     "message": "Quotes parameters"
   },
+  "quotesUseDefaultQuotes": {
+    "message": "Include built-in quotes"
+  },
+  "quotesUseDefaultQuotesHint": {
+    "message": "When off, only your custom quotes are shown."
+  },
   "quotesBack": {
     "message": "Back"
   },

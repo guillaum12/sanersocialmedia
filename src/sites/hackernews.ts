@@ -17,12 +17,12 @@ const hackernews = new Site({
           display: none!important;
         }
       `,
-      manipulateDom: ({ siteAction }) => waitForElement('#hnmain > tbody > tr:nth-child(3) > td').then((container) => {
+      manipulateDom: ({ siteAction }) => waitForElement('#hnmain > tbody > tr:nth-child(3) > td').then(async (container) => {
         if (!container) {
           return
         }
 
-        const widget = siteAction.createWidget(container)
+        const widget = await siteAction.createWidget(container)
         if (!widget) {
           return
         }
@@ -40,12 +40,12 @@ const hackernews = new Site({
           display: none!important;
         }
       `,
-      manipulateDom: ({ siteAction }) => waitForElement('#hnmain > tbody > tr:nth-child(3) > td').then((container) => {
+      manipulateDom: ({ siteAction }) => waitForElement('#hnmain > tbody > tr:nth-child(3) > td').then(async (container) => {
         if (!container) {
           return
         }
 
-        const widget = siteAction.createWidget(container)
+        const widget = await siteAction.createWidget(container)
         if (!widget) {
           return
         }
@@ -63,12 +63,12 @@ const hackernews = new Site({
           display: none!important;
         }
       `,
-      manipulateDom: ({ siteAction }) => waitForElement('#hnmain > tbody > tr:nth-child(3) > td').then((container) => {
+      manipulateDom: ({ siteAction }) => waitForElement('#hnmain > tbody > tr:nth-child(3) > td').then(async (container) => {
         if (!container) {
           return
         }
 
-        const widget = siteAction.createWidget(container)
+        const widget = await siteAction.createWidget(container)
         if (!widget) {
           return
         }

@@ -19,13 +19,13 @@ const x = new Site({
           overflow: hidden!important;
         }
       `,
-      manipulateDom: ({ siteAction }) => waitForElement('[data-testid="primaryColumn"] > div:last-child > div:nth-child(5)').then((container) => {
+      manipulateDom: ({ siteAction }) => waitForElement('[data-testid="primaryColumn"] > div:last-child > div:nth-child(5)').then(async (container) => {
         if (!container) {
           return
         }
         mute(container)
 
-        const widget = siteAction.createWidget(container)
+        const widget = await siteAction.createWidget(container)
         if (!widget) {
           return
         }
@@ -43,12 +43,12 @@ const x = new Site({
           display: none!important;
         }
       `,
-      manipulateDom: ({ siteAction }) => waitForElement('[data-testid="sidebarColumn"] section').then((container) => {
+      manipulateDom: ({ siteAction }) => waitForElement('[data-testid="sidebarColumn"] section').then(async (container) => {
         if (!container) {
           return
         }
 
-        const widget = siteAction.createWidget(container)
+        const widget = await siteAction.createWidget(container)
         if (!widget) {
           return
         }
@@ -66,12 +66,12 @@ const x = new Site({
           display: none!important;
         }
       `,
-      manipulateDom: ({ siteAction }) => waitForElement('[data-testid="sidebarColumn"] aside').then((container) => {
+      manipulateDom: ({ siteAction }) => waitForElement('[data-testid="sidebarColumn"] aside').then(async (container) => {
         if (!container) {
           return
         }
 
-        const widget = siteAction.createWidget(container)
+        const widget = await siteAction.createWidget(container)
         if (!widget) {
           return
         }

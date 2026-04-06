@@ -1,6 +1,8 @@
 export interface Store {
   userConfig?: UserConfig
   customQuotes?: UserQuote[]
+  /** When false, widgets only pick from custom quotes (falls back to built-ins if none). */
+  useDefaultQuotes?: boolean
 }
 
 export enum UserConfigKey {

@@ -17,14 +17,14 @@ const youtube = new Site({
           display: none!important;
         }
       `,
-      manipulateDom: ({ siteAction }) => waitForElement('ytd-browse[page-subtype="home"] #primary').then((container) => {
+      manipulateDom: ({ siteAction }) => waitForElement('ytd-browse[page-subtype="home"] #primary').then(async (container) => {
         if (!container) {
           return
         }
 
         mute(container)
 
-        const widget = siteAction.createWidget(container)
+        const widget = await siteAction.createWidget(container)
         if (!widget) {
           return
         }
@@ -56,12 +56,12 @@ const youtube = new Site({
           display: none!important;
         }
       `,
-      manipulateDom: ({ siteAction }) => waitForElement('#secondary #related').then((container) => {
+      manipulateDom: ({ siteAction }) => waitForElement('#secondary #related').then(async (container) => {
         if (!container) {
           return
         }
 
-        const widget = siteAction.createWidget(container)
+        const widget = await siteAction.createWidget(container)
         if (!widget) {
           return
         }
@@ -81,12 +81,12 @@ const youtube = new Site({
           overflow: hidden!important;
         }
       `,
-      manipulateDom: ({ siteAction }) => waitForElement('#comments #contents').then((container) => {
+      manipulateDom: ({ siteAction }) => waitForElement('#comments #contents').then(async (container) => {
         if (!container) {
           return
         }
 
-        const widget = siteAction.createWidget(container)
+        const widget = await siteAction.createWidget(container)
         if (!widget) {
           return
         }
@@ -117,13 +117,13 @@ const youtube = new Site({
           overflow: hidden!important;
         }
       `,
-      manipulateDom: ({ siteAction }) => waitForElement('ytd-shorts').then((container) => {
+      manipulateDom: ({ siteAction }) => waitForElement('ytd-shorts').then(async (container) => {
         if (!container) {
           return
         }
         mute(container)
 
-        const widget = siteAction.createWidget(container)
+        const widget = await siteAction.createWidget(container)
         if (!widget) {
           return
         }
@@ -142,14 +142,14 @@ const youtube = new Site({
           display: none!important;
         }
       `,
-      manipulateDom: ({ siteAction }) => waitForElement('ytd-browse[page-subtype="subscriptions"] #primary').then((container) => {
+      manipulateDom: ({ siteAction }) => waitForElement('ytd-browse[page-subtype="subscriptions"] #primary').then(async (container) => {
         if (!container) {
           return
         }
 
         mute(container)
 
-        const widget = siteAction.createWidget(container)
+        const widget = await siteAction.createWidget(container)
         if (!widget) {
           return
         }

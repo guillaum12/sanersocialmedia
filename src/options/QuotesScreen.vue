@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import type { UserQuote } from '~/types'
+import type { Store, UserQuote } from '~/types'
 import { computed, onMounted, onUnmounted, ref } from 'vue'
+import { getStore } from '~/chrome'
 import { myQuoteDbBound } from '~/quotes/myQuoteDbBound'
 
 const emit = defineEmits<{
@@ -14,6 +15,22 @@ function i18n(key: string): string {
 const quotes = ref<UserQuote[]>([])
 const draft = ref('')
 const adding = ref(false)
+const useDefaultQuotes = ref(true)
+
+async function loadUseDefaultQuotes() {
+  const store = await getStore()
+  useDefaultQuotes.value = store.useDefaultQuotes !== false
+}
+
+async function toggleUseDefaultQuotes() {
+  const next = !useDefaultQuotes.value
+  const store = await getStore()
+  await chrome.storage.sync.set({
+    ...store,
+    useDefaultQuotes: next,
+  } as Store)
+  useDefaultQuotes.value = next
+}
 
 const isTextContainingMultipleLines = computed(() => draft.value.split('\n').length > 1)
 
@@ -53,14 +70,20 @@ function onStorageChanged(
   changes: Record<string, chrome.storage.StorageChange>,
   areaName: string,
 ) {
-  if (areaName !== 'sync' || !changes.customQuotes) {
+  if (areaName !== 'sync') {
     return
   }
-  loadQuotes()
+  if (changes.customQuotes) {
+    loadQuotes()
+  }
+  if (changes.useDefaultQuotes) {
+    loadUseDefaultQuotes()
+  }
 }
 
 onMounted(() => {
   loadQuotes()
+  loadUseDefaultQuotes()
   chrome.storage.onChanged.addListener(onStorageChanged)
 })
 
@@ -79,6 +102,30 @@ onUnmounted(() => {
       <span class="i-mdi:arrow-left inline-block text-20px" />
       <span>{{ i18n('quotesBack') }}</span>
     </button>
+
+    <div class="mb-6 w-1/2 flex items-start justify-between gap-4 rounded bg-dark-800 bg-opacity-80 px-4 py-3">
+      <div class="min-w-0 flex-1">
+        <div class="text-sm text-white font-medium">
+          {{ i18n('quotesUseDefaultQuotes') }}
+        </div>
+        <p class="mt-1 text-xs text-white/80">
+          {{ i18n('quotesUseDefaultQuotesHint') }}
+        </p>
+      </div>
+      <button
+        type="button"
+        role="switch"
+        :aria-checked="useDefaultQuotes"
+        class="relative h-7 w-12 shrink-0 rounded-full ring-blue-500 transition-colors focus:outline-none focus-visible:ring-2"
+        :class="useDefaultQuotes ? 'bg-yellow/80' : 'bg-dark-500'"
+        @click="toggleUseDefaultQuotes"
+      >
+        <span
+          class="absolute left-0.5 top-0.5 h-6 w-6 rounded-full bg-white shadow transition-transform"
+          :class="useDefaultQuotes ? 'translate-x-5' : 'translate-x-0'"
+        />
+      </button>
+    </div>
 
     <h2 class="mb-4 text-lg font-semibold">
       {{ i18n('quotesParameters') }}

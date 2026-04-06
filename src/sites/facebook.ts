@@ -19,13 +19,13 @@ const facebook = new Site({
           display: none!important;
         }
       `,
-      manipulateDom: ({ siteAction }) => waitForElement(selectors).then((container) => {
+      manipulateDom: ({ siteAction }) => waitForElement(selectors).then(async (container) => {
         if (!container) {
           return
         }
         mute(container)
 
-        const widget = siteAction.createWidget(container)
+        const widget = await siteAction.createWidget(container)
         if (!widget) {
           return
         }

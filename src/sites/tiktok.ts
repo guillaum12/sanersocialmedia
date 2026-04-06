@@ -17,12 +17,12 @@ const tiktok = new Site({
           display: none!important;
         }
       `,
-      manipulateDom: ({ siteAction }) => waitForElement('[data-e2e="recommend-list-item-container"]').then((container) => {
+      manipulateDom: ({ siteAction }) => waitForElement('[data-e2e="recommend-list-item-container"]').then(async (container) => {
         if (!container) {
           return
         }
         mute(container)
-        const widget = siteAction.createWidget(container)
+        const widget = await siteAction.createWidget(container)
         if (widget) {
           widget.style.padding = '40px'
           container.before(widget)
@@ -42,12 +42,12 @@ const tiktok = new Site({
         }
       `,
       manipulateDom: ({ siteAction }) => {
-        waitForElement('.e178qcw44').then((container) => {
+        waitForElement('.e178qcw44').then(async (container) => {
           if (!container) {
             return
           }
 
-          const widget = siteAction.createWidget(container)
+          const widget = await siteAction.createWidget(container)
           if (!widget) {
             return
           }
@@ -55,12 +55,12 @@ const tiktok = new Site({
           widget.style.paddingTop = '10px'
           container.after(widget)
         })
-        waitForElement('.e1v8eaq60').then((container) => {
+        waitForElement('.e1v8eaq60').then(async (container) => {
           if (!container) {
             return
           }
 
-          const widget = siteAction.createWidget(container)
+          const widget = await siteAction.createWidget(container)
           if (!widget) {
             return
           }

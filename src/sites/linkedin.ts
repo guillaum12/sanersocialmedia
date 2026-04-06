@@ -17,13 +17,13 @@ const linkedin = new Site({
           display: none!important;
         }
       `,
-      manipulateDom: ({ siteAction }) => waitForElement('div[data-testid="mainFeed"]').then((container) => {
+      manipulateDom: ({ siteAction }) => waitForElement('div[data-testid="mainFeed"]').then(async (container) => {
         if (!container) {
           return
         }
         mute(container)
 
-        const widget = siteAction.createWidget(container)
+        const widget = await siteAction.createWidget(container)
         if (!widget) {
           return
         }
@@ -41,12 +41,12 @@ const linkedin = new Site({
           display: none!important;
         }
       `,
-      manipulateDom: ({ siteAction }) => waitForElement('.scaffold-layout__aside .feed-follows-module').then((container) => {
+      manipulateDom: ({ siteAction }) => waitForElement('.scaffold-layout__aside .feed-follows-module').then(async (container) => {
         if (!container) {
           return
         }
 
-        const widget = siteAction.createWidget(container)
+        const widget = await siteAction.createWidget(container)
         if (!widget) {
           return
         }

@@ -17,13 +17,13 @@ const instagram = new Site({
           display: none!important;
         }
       `,
-      manipulateDom: ({ siteAction }) => waitForElement('main[role=main]').then((container) => {
+      manipulateDom: ({ siteAction }) => waitForElement('main[role=main]').then(async (container) => {
         if (!container) {
           return
         }
         mute(container)
 
-        const widget = siteAction.createWidget(container)
+        const widget = await siteAction.createWidget(container)
         if (!widget) {
           return
         }
@@ -41,13 +41,13 @@ const instagram = new Site({
           display: none!important;
         }
       `,
-      manipulateDom: ({ siteAction }) => waitForElement('main[role=main]').then((container) => {
+      manipulateDom: ({ siteAction }) => waitForElement('main[role=main]').then(async (container) => {
         if (!container) {
           return
         }
         mute(container)
 
-        const widget = siteAction.createWidget(container)
+        const widget = await siteAction.createWidget(container)
         if (!widget) {
           return
         }
@@ -65,13 +65,13 @@ const instagram = new Site({
           display: none!important;
         }
       `,
-      manipulateDom: ({ siteAction }) => waitForElement('main[role=main]').then((container) => {
+      manipulateDom: ({ siteAction }) => waitForElement('main[role=main]').then(async (container) => {
         if (!container) {
           return
         }
         mute(container)
 
-        const widget = siteAction.createWidget(container)
+        const widget = await siteAction.createWidget(container)
         if (!widget) {
           return
         }

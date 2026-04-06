@@ -17,13 +17,13 @@ const twitch = new Site({
           display: none!important;
         }
       `,
-      manipulateDom: ({ siteAction }) => waitForElement('.root-scrollable').then((container) => {
+      manipulateDom: ({ siteAction }) => waitForElement('.root-scrollable').then(async (container) => {
         if (!container) {
           return
         }
         mute(container)
 
-        const widget = siteAction.createWidget(container)
+        const widget = await siteAction.createWidget(container)
         if (!widget) {
           return
         }

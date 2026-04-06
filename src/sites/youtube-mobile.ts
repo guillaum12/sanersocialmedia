@@ -17,13 +17,13 @@ const youtubeMobile = new Site({
           display: none!important;
         }
       `,
-      manipulateDom: ({ siteAction }) => waitForElement('.page-container').then((container) => {
+      manipulateDom: ({ siteAction }) => waitForElement('.page-container').then(async (container) => {
         if (!container) {
           return
         }
         mute(container)
 
-        const widget = siteAction.createWidget(container)
+        const widget = await siteAction.createWidget(container)
         if (!widget) {
           return
         }
@@ -41,12 +41,12 @@ const youtubeMobile = new Site({
           display: none!important;
         }
       `,
-      manipulateDom: ({ siteAction }) => waitForElement('.related-items-container').then((container) => {
+      manipulateDom: ({ siteAction }) => waitForElement('.related-items-container').then(async (container) => {
         if (!container) {
           return
         }
 
-        const widget = siteAction.createWidget(container)
+        const widget = await siteAction.createWidget(container)
         if (!widget) {
           return
         }
@@ -64,13 +64,13 @@ const youtubeMobile = new Site({
           display: none!important;
         }
       `,
-      manipulateDom: ({ siteAction }) => waitForElement('shorts-video').then((container) => {
+      manipulateDom: ({ siteAction }) => waitForElement('shorts-video').then(async (container) => {
         if (!container) {
           return
         }
         mute(container)
 
-        const widget = siteAction.createWidget(container)
+        const widget = await siteAction.createWidget(container)
         if (!widget) {
           return
         }
@@ -88,13 +88,13 @@ const youtubeMobile = new Site({
           display: none!important;
         }
       `,
-      manipulateDom: ({ siteAction }) => waitForElement('.page-container').then((container) => {
+      manipulateDom: ({ siteAction }) => waitForElement('.page-container').then(async (container) => {
         if (!container) {
           return
         }
         mute(container)
 
-        const widget = siteAction.createWidget(container)
+        const widget = await siteAction.createWidget(container)
         if (!widget) {
           return
         }
