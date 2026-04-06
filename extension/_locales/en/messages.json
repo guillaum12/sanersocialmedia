@@ -61,5 +61,29 @@
   },
   "blockSubscriptionsFeedShorts": {
     "message": "Block shorts in /feed/subscriptions feed"
+  },
+  "quotesParameters": {
+    "message": "Quotes parameters"
+  },
+  "quotesBack": {
+    "message": "Back"
+  },
+  "quotesAdd": {
+    "message": "Add quote"
+  },
+  "quotesTextLabel": {
+    "message": "Quote"
+  },
+  "quotesAuthorLabel": {
+    "message": "Author (optional)"
+  },
+  "quotesYourQuotes": {
+    "message": "Your quotes"
+  },
+  "quotesEmpty": {
+    "message": "No custom quotes yet. Add one above."
+  },
+  "quotesDelete": {
+    "message": "Remove quote"
   }
 }

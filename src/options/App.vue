@@ -5,6 +5,7 @@ import { onMounted, onUnmounted, ref } from 'vue'
 import logo from '~/assets/logo.svg'
 import { getStore, setUserConfig, toggleSiteAction } from '~/chrome'
 import { sites } from '~/sites'
+import QuotesScreen from './QuotesScreen.vue'
 import SnoozeButton from './SnoozeButton.vue'
 
 const chromeWebStoreLink = 'https://chromewebstore.google.com/detail/saner-social-media-feed-b/opnoobcmpioggidgaejfkbopdphbfkkk'
@@ -61,6 +62,8 @@ async function disableAllSiteActions() {
 function i18n(key: string): string {
   return chrome.i18n.getMessage(key)
 }
+
+const showQuotesScreen = ref(false)
 </script>
 
 <template>
@@ -94,7 +97,9 @@ function i18n(key: string): string {
       </div>
     </div>
 
-    <div class="container mx-auto max-w-4xl px-4">
+    <QuotesScreen v-if="showQuotesScreen" @close="showQuotesScreen = false" />
+
+    <div v-else class="container mx-auto max-w-4xl px-4">
       <div class="mb-2 flex border-dark-200 space-x-2">
         <button
           class="w-full rounded bg-dark-800 px-4 py-2.5 text-sm leading-none ring-blue-500 transition-all hover:bg-dark-500 active:ring-2"
@@ -107,6 +112,16 @@ function i18n(key: string): string {
           @click.prevent="disableAllSiteActions()"
         >
           <span>{{ i18n('disableAll') }}</span>
+        </button>
+      </div>
+
+      <div class="my-8">
+        <button
+          type="button"
+          class="w-1/2 rounded bg-dark-800 px-4 py-2.5 text-sm leading-none ring-blue-500 transition-all hover:bg-dark-500 active:ring-2"
+          @click="showQuotesScreen = true"
+        >
+          <span>{{ i18n('quotesParameters') }}</span>
         </button>
       </div>
 
