@@ -1,6 +1,6 @@
 import type { UserConfig, UserConfigKey } from './types'
 import { checkSnoozed, checkSnoozedPerSiteAction, getSnoozeMinutes, setSnoozedUntilTimestampPerSiteAction } from './chrome'
-import { getRandomQuote } from './quotes'
+import { getRandomQuote } from './quotes/getRandomQuote'
 import { hasDarkBackground } from './utils'
 
 interface SiteParams {
@@ -128,9 +128,13 @@ export class SiteAction {
     quoteText.setAttribute('data-quote-text', '')
     quoteText.textContent = randomQuote.text
 
-    const quoteAuthor = document.createElement('div')
-    quoteAuthor.setAttribute('data-quote-author', '')
-    quoteAuthor.textContent = `— ${randomQuote.author}`
+    if (randomQuote.author) {
+      const quoteAuthor = document.createElement('div')
+      quoteAuthor.setAttribute('data-quote-author', '')
+      quoteAuthor.textContent = `— ${randomQuote.author}`
+      quote.appendChild(quoteAuthor)
+    }
+
     const numberOfClickToUnhide = 7
     const attributeClickLeft = 'number-of-clicks-left'
 
@@ -149,7 +153,6 @@ export class SiteAction {
     })
 
     quote.appendChild(quoteText)
-    quote.appendChild(quoteAuthor)
     widget.appendChild(quote)
 
     return widget

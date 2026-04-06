@@ -1,5 +1,6 @@
 export interface Store {
   userConfig?: UserConfig
+  customQuotes?: UserQuote[]
 }
 
 export enum UserConfigKey {
@@ -45,6 +46,10 @@ type PartialRecord<K extends keyof any, T> = {
 export type UserConfig = PartialRecord<UserConfigKey, boolean>
 
 export interface Quote {
-  author: string
+  author?: string
   text: string
+}
+
+export interface UserQuote extends Quote {
+  id: string
 }

@@ -1,6 +1,6 @@
-import type { Quote } from './types'
+import type { Quote } from '../types'
 
-const quotes: Quote[] = [
+export const quotes: Quote[] = [
   {
     author: 'Abraham Lincoln',
     text: 'A house divided against itself cannot stand.',
@@ -6463,6 +6463,3 @@ const quotes: Quote[] = [
   },
 ]
 
-export function getRandomQuote(): Quote {
-  return quotes[Math.floor(Math.random() * quotes.length)]
-}
