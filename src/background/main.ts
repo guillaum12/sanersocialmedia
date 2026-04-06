@@ -58,7 +58,7 @@ async function setupSnooze() {
   }
 
   await snoozeTick()
-  snoozeInterval = setInterval(() => snoozeTick(), 1000)
+  snoozeInterval = setInterval(snoozeTick, 1000)
 }
 
 async function setupAllSnoozeSiteActions() {

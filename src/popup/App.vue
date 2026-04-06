@@ -55,7 +55,7 @@ function setupTimer() {
   }
 
   updateTimer()
-  timerInterval.value = setInterval(() => updateTimer(), 1000)
+  timerInterval.value = setInterval(updateTimer, 1000)
 }
 
 watch(snoozed, setupTimer)
