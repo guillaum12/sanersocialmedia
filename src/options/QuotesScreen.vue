@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { UserQuote } from '~/types'
-import { onMounted, onUnmounted, ref } from 'vue'
+import { computed, onMounted, onUnmounted, ref } from 'vue'
 import { myQuoteDbBound } from '~/quotes/myQuoteDbBound'
 
 const emit = defineEmits<{
@@ -12,24 +12,31 @@ function i18n(key: string): string {
 }
 
 const quotes = ref<UserQuote[]>([])
-const text = ref('')
+const draft = ref('')
 const adding = ref(false)
+
+const isTextContainingMultipleLines = computed(() => draft.value.split('\n').length > 1)
 
 async function loadQuotes() {
   quotes.value = await myQuoteDbBound.getAll()
 }
 
 async function addQuote() {
-  const t = text.value.trim()
+  const t = draft.value.trim()
   if (!t || adding.value) {
     return
   }
   adding.value = true
+
+  const quotesToAdd = isTextContainingMultipleLines.value ? t.split('\n') : [t]
+
   try {
-    await myQuoteDbBound.insert({
-      text: t,
-    })
-    text.value = ''
+    for (const quote of quotesToAdd) {
+      await myQuoteDbBound.insert({
+        text: quote,
+      })
+    }
+    draft.value = ''
     await loadQuotes()
   }
   finally {
@@ -79,10 +86,10 @@ onUnmounted(() => {
 
     <div class="mb-8 rounded bg-dark-800 bg-opacity-80 p-4 space-y-3">
       <div>
-        <label class="mb-1 block text-sm text-white" for="quote-text">{{ i18n('quotesTextLabel') }}</label>
+        <label class="mb-1 block text-sm text-white" for="quote-text">{{ i18n('myQuotesTextLabel') }}</label>
         <textarea
           id="quote-text"
-          v-model="text"
+          v-model="draft"
           rows="3"
           class="w-full resize-y border border-dark-500 rounded bg-dark-900 px-3 py-2 text-sm outline-none ring-blue-500 focus:border-transparent focus:ring-2"
         />
@@ -90,10 +97,10 @@ onUnmounted(() => {
       <button
         type="button"
         class="rounded bg-white/80 px-4 py-2.5 text-sm text-dark-900 leading-none ring-blue-500 transition-all disabled:opacity-50 hover:opacity-60 active:ring-2"
-        :disabled="adding || !text.trim()"
+        :disabled="adding || !draft.trim()"
         @click="addQuote"
       >
-        {{ i18n('quotesAdd') }}
+        {{ isTextContainingMultipleLines ? i18n('multipleQuotesAdd') : i18n('singleQuoteAdd') }}
       </button>
     </div>
 
